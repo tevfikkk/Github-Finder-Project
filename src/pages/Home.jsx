@@ -1,9 +1,11 @@
 import React from 'react'
+import UserResults from '../components/users/UserResults'
 
 const Home = () => {
   return (
     <div>
-      <div className='text-6xl'>Welcome!</div>
+      {/* SEARCH COMPONENT */}
+      <UserResults />
     </div>
   )
 }
