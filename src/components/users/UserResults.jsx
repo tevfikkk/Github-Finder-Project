@@ -2,22 +2,26 @@ import React, { useEffect } from 'react'
 
 const UserResults = () => {
   useEffect(() => {
-    fetchUsers()
+    fetchUsers().then(data => console.log(data))
   }, [])
 
   const fetchUsers = async () => {
-    const response = await fetch(`${process.env.REACT_APP_GITHUB_URL}/users`, {
-      headers: {
-        Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
-      },
-    })
+    try {
+      const response = await fetch('https://api.github.com', {
+        headers: {
+          Authorization: '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',
+        },
+      })
 
-    const data = await response.json()
-
-    console.log(data)
+      const data = await response.json()
+      return data
+    } catch (err) {
+      console.error(err)
+      throw Error(err)
+    }
   }
 
-  return <div>user result</div>
+  return <div>user results</div>
 }
 
 export default UserResults
