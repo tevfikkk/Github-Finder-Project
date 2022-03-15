@@ -1,27 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useContext } from 'react'
+import Spinner from '../layout/Spinner'
+import UserItem from '../users/UserItem'
+import GithubContext from '../../context/github/GithubContext'
 
 const UserResults = () => {
-  useEffect(() => {
-    fetchUsers().then(data => console.log(data))
-  }, [])
+  const { users, loading } = useContext(GithubContext)
 
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch('https://api.github.com', {
-        headers: {
-          Authorization: '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',
-        },
-      })
-
-      const data = await response.json()
-      return data
-    } catch (err) {
-      console.error(err)
-      throw Error(err)
-    }
-  }
-
-  return <div>user results</div>
+  return !loading ? (
+    <div className='grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2'>
+      {users.map(user => (
+        <UserItem key={user.id} user={user} />
+      ))}
+    </div>
+  ) : (
+    <Spinner />
+  )
 }
 
 export default UserResults
