@@ -4,6 +4,7 @@ import githubReducer from './GithubReducer'
 const GithubContext = createContext()
 
 export const GithubProvider = ({ children }) => {
+  // higher order component
   //   const [users, setUsers] = useState([])
   //   const [loading, setLoading] = useState(true)
   const initialState = {
@@ -21,13 +22,15 @@ export const GithubProvider = ({ children }) => {
       q: text,
     })
 
+    const options = {
+      headers: {
+        Authorization: `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`,
+      },
+    }
+
     const response = await fetch(
       `https://api.github.com/search/users?${params}`,
-      {
-        headers: {
-          Authorization: `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`,
-        },
-      }
+      { options }
     )
 
     const { items } = await response.json()
