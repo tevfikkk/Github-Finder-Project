@@ -46,14 +46,10 @@ export const GithubProvider = ({ children }) => {
   const getUser = async login => {
     setLoading()
 
-    const options = {
+    const response = await fetch(`https://api.github.com/users/${login}`, {
       headers: {
         Authorization: `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`,
       },
-    }
-
-    const response = await fetch(`https://api.github.com/users?${login}`, {
-      options,
     })
 
     if (response.status === 404) {
@@ -62,7 +58,7 @@ export const GithubProvider = ({ children }) => {
       const data = await response.json()
       dispatch({
         // dispatch = to send
-        type: 'GET_USERS',
+        type: 'GET_USER',
         payload: data,
       })
     }
