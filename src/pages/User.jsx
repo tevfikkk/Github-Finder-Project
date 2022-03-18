@@ -69,7 +69,13 @@ const User = () => {
               </h1>
               <p>{bio}</p>
               <div className='mt-4 card-actions'>
-                <a href={html_url} target='_blank' rel='noreferrer'></a>
+                <a
+                  href={html_url}
+                  target='_blank'
+                  rel='noreferrer'
+                  className='btn btn-outline'>
+                  Visit Github Profile
+                </a>
               </div>
             </div>
           </div>
