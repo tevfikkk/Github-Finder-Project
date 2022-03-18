@@ -1,7 +1,7 @@
 
 # Github Finder Project
 
-Upon writing any name in the search box, you can reach any users.
+Upon writing any name in the search box and pushing the button, users are shown on the screen.
 
 ## Link: http://github-finder-project.vercel.app/
 
