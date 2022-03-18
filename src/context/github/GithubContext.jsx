@@ -16,100 +16,15 @@ export const GithubProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(githubReducer, initialState)
 
-  // Get search results
-  const searchUsers = async text => {
-    setLoading()
-
-    const params = new URLSearchParams({
-      q: text,
-    })
-
-    const options = {
-      headers: {
-        Authorization: `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`,
-      },
-    }
-
-    const response = await fetch(
-      `https://api.github.com/search/users?${params}`,
-      { options }
-    )
-
-    const { items } = await response.json()
-    dispatch({
-      // dispatch = to send
-      type: 'GET_USERS',
-      payload: items,
-    })
-  }
-
-  // Get single user
-  const getUser = async login => {
-    setLoading()
-
-    const response = await fetch(`https://api.github.com/users/${login}`, {
-      headers: {
-        Authorization: `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`,
-      },
-    })
-
-    if (response.status === 404) {
-      window.location = '/notfound'
-    } else {
-      const data = await response.json()
-      dispatch({
-        // dispatch = to send
-        type: 'GET_USER',
-        payload: data,
-      })
-    }
-  }
-
-  // Get user repos
-  const getUserRepos = async login => {
-    setLoading()
-
-    const params = new URLSearchParams({
-      sort: 'created',
-      per_page: 10,
-    })
-
-    const options = {
-      headers: {
-        Authorization: `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`,
-      },
-    }
-
-    const response = await fetch(
-      `https://api.github.com/users/${login}/repos?${params}`,
-      { options }
-    )
-
-    const data = await response.json()
-    dispatch({
-      // dispatch = to send
-      type: 'GET_REPOS',
-      payload: data,
-    })
-  }
-
-  // Set Loading
-  const setLoading = () => dispatch({ type: 'SET_LOADING' })
-
-  //Clear Users from state
-  const clearUsers = () => dispatch({ type: 'CLEAR_USERS' })
-
   return (
     <GithubContext.Provider
       value={{
-        users: state.users,
-        user: state.user,
-        loading: state.loading,
-        getUser,
-        clearUsers,
-        searchUsers,
-        repos: state.repos,
-        getUserRepos,
+        // users: state.users,
+        // user: state.user,
+        // loading: state.loading,
+        // repos: state.repos,
+        ...state,
+        dispatch,
       }}>
       {children}
     </GithubContext.Provider>

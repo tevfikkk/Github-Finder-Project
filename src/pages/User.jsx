@@ -18,8 +18,6 @@ const User = () => {
     getUserRepos(params.login)
   }, [])
 
-  console.log(params.login)
-
   const {
     name,
     type,
